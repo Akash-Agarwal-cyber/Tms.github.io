@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Contact Us</title>
+</head>
+
+<body>
+
+    <?php
+    include "db_connect.php";
+    include 'navbar.php';
+   
+    
+    ?>
+     <?php
+    $show_alert = false;
+    $show_error = false;
+
+    ?>
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $Email = $_POST["Email"];
+        $Query = $_POST["query"];
+        if($Email!=null && $Query !=null){
+
+        $sql = "INSERT INTO `query_table` (`Email`, `Query_Text` ) VALUES ('$Email', '$Query')";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            $show_alert = true;
+        } else {
+            $show_error = true;
+        }
+    }
+    else {
+        $show_error = true;
+    }
+    }
+
+    ?>
+    <?php
+    if ($show_alert) {
+        echo '<div class="alert alert-success my-3 alert-dismissible fade show" role="alert">
+<h4 class="alert-heading">Submitted Successfully!</h4>
+<p>Thanku for Submitting your query, We will contact you soon.</p>
+
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>';
+    }
+    if ($show_error) {
+
+        echo '<div class="alert alert-danger" role="alert">
+<strong>Error!!</strong>  Please Enter Your Email and query
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>';
+    }
+    ?>
+
+
+
+
+    <div class="my-5 ml-5 mr-5">
+        <form method="post">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Your Email address</label>
+                <input type="email" class="form-control" name="Email" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Your query Related to</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>Account</option>
+                    <option>Destinations</option>
+                    <option>Login/Register</option>
+                    <option>Other</option>
+
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Write your Query</label>
+                <textarea class="form-control" name="query" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"><strong>Submit </strong></button>
+        </form>
+
+    </div>
+
+
+    <div class="copyright_text container my-5">
+        <h6>
+            Copyright © 2020–2021
+            Travel Portal.in™. All rights reserved.</h6>
+    </div>
+   
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
